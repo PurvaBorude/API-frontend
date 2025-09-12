@@ -1,0 +1,10 @@
+.logs-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.logs-main {
+  flex: 1;
+  background: #f9fafb;
+  overflow-y: auto;
+}
