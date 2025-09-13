@@ -1,80 +1,127 @@
+/* Full page container */
 .monitor-details-container {
-  padding: 2rem;
-  background: #e4e2e2;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 900px;          /* fixed readable width */
+  margin: 40px auto;         /* center horizontally */
+  padding: 20px 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
+/* Headings */
 .monitor-details-title {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
   text-align: center;
+}
+
+/* Monitor info section */
+.monitor-info {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.monitor-field {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 1rem;
+}
+
+.monitor-field:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.interval-badge {
+  background: #0077cc;
+  color: white;
+  padding: 2px 8px;
+  margin-left: 8px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+/* Logs section */
+.logs-header {
+  text-align: center;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
   color: #333;
 }
 
-.monitor-error {
-  color: #d9534f;
-  font-size: 15px;
-  text-align: center;
-  margin-top: 2rem;
+/* Timeline layout */
+.logs-timeline {
+  position: relative;
+  margin-left: 0;          /* remove margin hacks */
+  padding-left: 40px;      /* space for content, not for line */
+  border-left: 3px solid #ccc; /* the timeline line */
 }
 
-.monitor-loading {
-  color: #555;
-  font-size: 15px;
-  text-align: center;
-  margin-top: 2rem;
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
 }
 
-.logs-title {
-  font-size: 20px;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #444;
+.timeline-dot {
+  position: absolute;
+  left: -52px; /* EXACT center of 16px dot over 3px line */
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px #ccc;
+  background: #28a745; /* default green (overridden by .dot-up/.dot-down) */
+  z-index: 2;
 }
 
-.logs-empty {
-  text-align: center;
-  color: #777;
-  font-size: 14px;
+
+.dot-up {
+  background: #28a745; /* green */
 }
 
-.logs-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.dot-down {
+  background: #dc3545; /* red */
 }
 
-.logs-item {
-  background: #f9f9f9;
-  padding: 10px 12px;
-  margin-bottom: 8px;
-  border-radius: 6px;
-  font-size: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background 0.2s ease;
+.timeline-content {
+  background: white;
+  padding: 12px 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.logs-item:hover {
-  background: #eef5ff;
+.timeline-content:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 }
 
 .log-time {
-  color: #555;
-  font-weight: 500;
-}
-
-.log-status {
-  color: #007bff;
+  display: block;
+  font-size: 0.9rem;
   font-weight: 600;
+  color: #222; /* darker */
+  margin-bottom: 5px;
 }
 
-.log-response {
+.status-up {
   color: #28a745;
-  font-weight: 600;
+}
+
+.status-down {
+  color: #dc3545;
+}
+
+.response-time {
+  font-weight: 500;
+  color: #555;
 }

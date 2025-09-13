@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem("token");
         if (!token) return setLoading(false);
 
-        const res = await API.get("/users/profile"); // ✅ corrected
+        const res = await API.get("/users/profile"); 
         setUser(res.data);
       } catch (err) {
         localStorage.removeItem("token");
@@ -27,16 +27,16 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     localStorage.removeItem("token");
-    const res = await API.post("/users/login", { email, password }); // ✅ corrected
+    const res = await API.post("/users/login", { email, password }); 
     localStorage.setItem("token", res.data.token);
 
-    const profile = await API.get("/users/profile"); // ✅ corrected
+    const profile = await API.get("/users/profile"); 
     setUser(profile.data);
   };
 
   const register = async (name, email, password) => {
     localStorage.removeItem("token");
-    await API.post("/users/register", { name, email, password }); // ✅ corrected
+    await API.post("/users/register", { name, email, password }); 
     await login(email, password);
   };
 
@@ -46,15 +46,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   const forgotPassword = async (email) => {
-    return await API.post("/users/forgot-password", { email }); // ✅ corrected
+    return await API.post("/users/forgot-password", { email }); 
   };
 
   const resetPassword = async (token, newPassword) => {
-    return await API.post(`/users/reset-password/${token}`, { newPassword }); // ✅ corrected
+    return await API.post(`/users/reset-password/${token}`, { newPassword }); 
   };
 
   const changePassword = async (currentPassword, newPassword) => {
-    return await API.put("/users/change-password", { currentPassword, newPassword }); // ✅ corrected
+    return await API.put("/users/change-password", { currentPassword, newPassword }); 
   };
 
   const changeUsername = async (newUsername) => {

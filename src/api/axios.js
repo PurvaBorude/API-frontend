@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://api-backend-8rk2.onrender.com"+ "/api", 
+  baseURL: process.env.REACT_APP_API_URL, // dynamically read from .env file (will work locally and on Render)
 });
 
 API.interceptors.request.use((config) => {
