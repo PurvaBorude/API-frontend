@@ -1,54 +1,26 @@
 /* src/pages/Register.css */
-
-/*
-  The outer container styles for .register-container are now fully managed
-  by AuthPage.css and its .auth-container class.
-
-  This file only contains styles for elements *inside* the <form className="register-form">.
-*/
-
 .register-form {
   display: flex;
   flex-direction: column;
   gap: 16px; /* Spacing between elements in the form */
   width: 100%; /* Ensure the form takes the full width of its parent (.auth-container) */
   box-sizing: border-box;
-  /* Removed all padding, background, box-shadow, border-radius, max-width styles
-     as these are now handled by .auth-container in AuthPage.css */
 }
 
-/* Override general h2 in AuthPage.css if needed, otherwise rely on AuthPage.css */
 .register-title {
-  /* Inherit text-align: right from .auth-container h2 for "Register" */
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 8px; /* Adjust if gap is also set on the form */
   color: #333;
 }
 
-/* Error messages: rely on the generic .error-message in AuthPage.css */
 .register-error {
-  /* This will be handled by .auth-container .error-message */
-  /* If you want a specific style for register error, define it here */
   color: #d9534f;
   font-size: 14px;
   margin-bottom: 8px;
   text-align: center;
 }
 
-/* Inputs: rely on the general input styles in AuthPage.css */
-.register-input {
-  /* These will inherit from .auth-container input */
-  /* text-align: left; is important and should be in AuthPage.css inputs */
-}
-
-/* Buttons: rely on the general button styles in AuthPage.css */
-.register-button {
-  /* These will inherit from .auth-container button */
-}
-
-
-/* Link text (e.g., "Already have an account? Login") */
 .register-login-text {
   margin-top: 8px; /* Consistent spacing */
   font-size: 14px;
@@ -66,7 +38,6 @@
   text-decoration: underline;
 }
 
-/* Media query specific to the register form if needed */
 @media (max-width: 480px) {
   .register-title {
     font-size: 22px;
