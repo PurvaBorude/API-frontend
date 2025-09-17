@@ -1,47 +1,49 @@
 // src/components/Sidebar.js
-import { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import "./Sidebar.css";
 
-const Sidebar = () => {
+// Receive props from HomePage.js
+const Sidebar = ({ isOpen, isMobile, onToggle }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
-  const toggleSidebar = () => {
-    setCollapsed(!collapsed);
-  };
+  const desktopCollapsed = !isMobile && !isOpen;
 
   return (
-    <div className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+    <div className={`sidebar ${desktopCollapsed ? "collapsed" : ""} ${isMobile && isOpen ? "open" : ""}`}>
       <div className="sidebar-header">
-        <button className="toggle-btn" onClick={toggleSidebar}>
-          {collapsed ? "☰" : "✕"}
-        </button>
-        {!collapsed && <h2>Monitor App</h2>}
+        {isMobile ? (
+          <button className="mobile-close" onClick={onToggle}>✕</button>
+        ) : (
+          <button className="toggle-btn" onClick={onToggle}>
+            {desktopCollapsed ? "☰" : "✕"}
+          </button>
+        )}
+        {/*{!desktopCollapsed && <h2>Monitor App</h2>}*/}
       </div>
 
       <ul className="sidebar-menu">
         <li>
-          <Link to="/dashboard">
+          <Link to="/dashboard" onClick={isMobile ? onToggle : undefined}>
             <span className="icon">📊</span>
             <span className="label">Dashboard</span>
           </Link>
         </li>
         <li>
-          <Link to="/profile">
+          <Link to="/profile" onClick={isMobile ? onToggle : undefined}>
             <span className="icon">👤</span>
             <span className="label">Profile</span>
           </Link>
         </li>
         <li>
-          <button onClick={handleLogout}>
+          <button onClick={() => { handleLogout(); if (isMobile) onToggle(); }}>
             <span className="icon">🚪</span>
             <span className="label">Logout</span>
           </button>

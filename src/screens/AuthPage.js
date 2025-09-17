@@ -3,6 +3,7 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import ForgotPasswordPage from "../passwords/ForgotPassword";
 import ResetPasswordPage from "../passwords/ResetPassword";
+import "./AuthPage.css";
 
 const AuthPage = ({ mode }) => {
   const renderForm = () => {

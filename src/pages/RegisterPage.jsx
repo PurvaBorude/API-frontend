@@ -1,3 +1,4 @@
+// src/pages/RegisterPage.js
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -19,7 +20,6 @@ const RegisterPage = () => {
       await register(name, email, password); // calls backend via AuthContext
       navigate("/dashboard");
     } catch (err) {
-      // Handle validation or server errors
       const msg =
         err.response?.data?.errors?.[0]?.msg ||
         err.response?.data?.msg ||
@@ -30,50 +30,49 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register-container">
-      <form onSubmit={handleSubmit} className="register-form">
-        <h2 className="register-title">Register</h2>
-        {error && <p className="register-error">{error}</p>}
+    // The AuthPage.js component already provides the outer container.
+    <form onSubmit={handleSubmit} className="register-form">
+      <h2 className="register-title">Register</h2>
+      {error && <p className="register-error">{error}</p>}
 
-        <input
-          type="text"
-          placeholder="Name"
-          className="register-input"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+      <input
+        type="text"
+        placeholder="Name"
+        className="register-input"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="register-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+      <input
+        type="email"
+        placeholder="Email"
+        className="register-input"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="register-input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+      <input
+        type="password"
+        placeholder="Password"
+        className="register-input"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
 
-        <button type="submit" className="register-button">
-          Register
-        </button>
+      <button type="submit" className="register-button">
+        Register
+      </button>
 
-        <p className="register-login-text">
-          Already have an account?{" "}
-          <Link to="/login" className="register-login-link">
-            Login
-          </Link>
-        </p>
-      </form>
-    </div>
+      <p className="register-login-text">
+        Already have an account?{" "}
+        <Link to="/login" className="register-login-link">
+          Login
+        </Link>
+      </p>
+    </form>
   );
 };
 

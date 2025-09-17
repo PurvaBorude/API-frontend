@@ -1,10 +1,135 @@
-.profile-container {
-  display: flex;
-  min-height: 100vh;
+/* src/screens/ProfilePage.css */
+
+/* Import variables from the main project CSS if needed */
+/* :root variables from HomePage.css */
+:root {
+  --sidebar-width: 260px;
+  --sidebar-collapsed: 80px;
+  --transition: 0.3s;
+  --topbar-height: 60px;
 }
 
+/* Base container */
+.profile-container {
+  min-height: 100vh;
+  display: flex; /* Use flexbox for desktop layout */
+  background: #f7f8fa;
+}
+
+/* Mobile topbar: visible only on mobile */
+.mobile-topbar {
+  display: none;
+  align-items: center;
+  justify-content: flex-start;
+  height: var(--topbar-height);
+  padding: 0 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  gap: 16px;
+}
+
+.mobile-topbar .hamburger {
+  flex-shrink: 0;
+}
+
+.mobile-topbar .brand {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #111827;
+  flex: 1;
+}
+
+/* Main content area */
 .profile-main {
   flex: 1;
   background: #f9fafb;
   overflow-y: auto;
+  transition: margin-left var(--transition) ease, padding var(--transition) ease;
+  margin-left: 0;
+  padding: 24px;
+  min-height: 100vh;
+}
+
+/* Hamburger button */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #374151;
+  transition: background-color 0.2s;
+}
+
+.hamburger:hover {
+  background: #f3f4f6;
+}
+
+/* Backdrop overlay for mobile sidebar */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- Media Queries --- */
+
+/* Desktop: reserve space for sidebar */
+@media (min-width: 769px) {
+  .profile-main {
+    margin-left: var(--sidebar-width);
+  }
+  
+  /* When sidebar is collapsed, reduce margin */
+  .profile-container.sidebar-collapsed .profile-main {
+    margin-left: var(--sidebar-collapsed);
+  }
+  
+  /* Hide mobile-specific elements on desktop */
+  .mobile-topbar,
+  .backdrop,
+  .hamburger {
+    display: none;
+  }
+}
+
+/* Mobile: adjust layout for small screens */
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column; /* Stack components */
+  }
+
+  /* Show mobile top bar and hamburger */
+  .mobile-topbar,
+  .hamburger {
+    display: flex;
+  }
+
+  /* Add top padding for fixed top bar */
+  .profile-main {
+    padding-top: calc(var(--topbar-height) + 16px);
+  }
+  
+  /* Show backdrop for mobile sidebar */
+  .backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }

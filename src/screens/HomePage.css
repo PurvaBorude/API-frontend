@@ -1,10 +1,237 @@
-.home-container {
-  display: flex;
-  min-height: 100vh;
+:root{
+  --sidebar-width: 260px;
+  --sidebar-collapsed: 80px;
+  --transition: 0.3s;
+  --topbar-height: 60px;
 }
 
-.home-main {
+/* Root container */
+.home-container{
+  min-height: 100vh;
+  display: block;
+  background: #f7f8fa;
+}
+
+/* Mobile topbar: visible only on mobile */
+.mobile-topbar{
+  display: none;
+  align-items: center;
+  justify-content: flex-start;
+  height: var(--topbar-height);
+  padding: 0 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  gap: 16px;
+}
+
+.mobile-topbar .hamburger {
+  flex-shrink: 0;
+}
+
+.mobile-topbar .brand {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #111827;
   flex: 1;
-  background: #f9fafb;
-  overflow-y: auto;
+}
+
+/* Show mobile topbar only on mobile */
+@media (max-width: 768px) {
+  .mobile-topbar {
+    display: flex;
+  }
+}
+
+/* Hamburger button */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #374151;
+  transition: background-color 0.2s;
+}
+
+.hamburger:hover {
+  background: #f3f4f6;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+}
+
+/* Main content area */
+.home-main{
+  transition: margin-left var(--transition) ease, padding var(--transition) ease;
+  margin-left: 0;
+  padding: 24px;
+  min-height: 100vh;
+  background: #f7f8fa;
+}
+
+/* Desktop: reserve space for sidebar */
+@media (min-width: 769px) {
+  .home-main {
+    margin-left: var(--sidebar-width);
+  }
+  
+  /* When sidebar is collapsed */
+  .sidebar.collapsed ~ .home-main,
+  .home-container.sidebar-collapsed .home-main {
+    margin-left: var(--sidebar-collapsed);
+  }
+}
+
+/* Mobile: add top padding for fixed topbar and adjust padding */
+@media (max-width: 768px) {
+  .home-main {
+    padding-top: calc(var(--topbar-height) + 16px);
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .home-main {
+    padding: 20px;
+  }
+}
+
+/* Large desktop improvements */
+@media (min-width: 1400px) {
+  .home-main { 
+    padding-left: 40px; 
+    padding-right: 40px; 
+  }
+}
+
+/* Backdrop overlay for mobile sidebar */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+
+.backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Hide backdrop on desktop */
+@media (min-width: 769px) {
+  .backdrop {
+    display: none;
+  }
+}
+
+/* Content wrapper for better organization */
+.content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Page header styles */
+.page-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.page-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.page-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+  }
+  
+  .page-subtitle {
+    font-size: 0.9rem;
+  }
+}
+
+/* Loading states and animations */
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #2563eb;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Utility classes for spacing */
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-8 { margin-top: 2rem; }
+
+/* Print styles */
+@media print {
+  .sidebar,
+  .mobile-topbar,
+  .hamburger,
+  .backdrop {
+    display: none !important;
+  }
+  
+  .home-main {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
 }

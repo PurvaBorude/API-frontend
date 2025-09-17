@@ -99,7 +99,8 @@ const Dashboard = () => {
         {websites.length === 0 ? (
           <p>No websites added yet.</p>
         ) : (
-          <table border="1" cellPadding="8" style={{ marginTop: "10px" }}>
+          < div className="table-responsive">
+          <table>
             <thead>
               <tr>
                 <th>Name</th>
@@ -113,16 +114,16 @@ const Dashboard = () => {
             <tbody>
               {websites.map((site) => (
                 <tr key={site._id}>
-                  <td>{site.name || "Unnamed"}</td>
-                  <td>
+                  <td data-label="Name">{site.name || "Unnamed"}</td>
+                  <td data-label="URL">
                     <a href={site.url} target="_blank" rel="noreferrer">
                       {site.url}
                     </a>
                   </td>
-                  <td>{site.lastStatus}</td>
-                  <td>{site.uptimePercentage}%</td>
-                  <td>{site.lastResponseTime ?? "-"}</td>
-                  <td>
+                  <td data-label="Status">{site.lastStatus}</td>
+                  <td data-label="Uptime">{site.uptimePercentage}%</td>
+                  <td data-label="Last Resp (ms)">{site.lastResponseTime ?? "-"}</td>
+                  <td data-label="Actions">
                     <Link to={`/monitor/edit/${site._id}`}>✏️ Edit</Link> |{" "}
                     <button onClick={() => handleDelete(site._id)}>🗑️ Delete</button> |{" "}
                     <Link to={`/monitor/logs/${site._id}`}>📈 View Logs</Link>
@@ -131,6 +132,7 @@ const Dashboard = () => {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
       
