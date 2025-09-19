@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const resetPassword = async (token, newPassword) => {
-    return await API.post(`/users/reset-password/${token}`, { newPassword }); 
+    return await API.put(`/users/reset-password/${token}`, { newPassword }); 
   };
 
   const changePassword = async (currentPassword, newPassword) => {
